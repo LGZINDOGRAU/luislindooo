@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Minha Emanuelly ❤️</title>
+    <title>Para Emanuelly ❤️</title>
     <style>
         :root {
-            --cor-fundo: #ffe5ec;
-            --cor-envelope: #ff758f;
-            --cor-aba-interna: #ff8fa3;
+            --rosa-fundo: #ffe5ec;
+            --rosa-envelope: #ff758f;
+            --rosa-aba: #ff8fa3;
             --cor-detalhe: #ff4d6d;
         }
 
@@ -19,12 +19,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: var(--cor-fundo);
+            background-color: var(--rosa-fundo);
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
 
-        /* Chuva de Corações */
+        /* Corações caindo */
         .heart {
             position: absolute;
             top: -20px;
@@ -38,7 +38,7 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* Envelope */
+        /* Container do Envelope */
         .container {
             position: relative;
             width: 320px;
@@ -47,50 +47,40 @@
             z-index: 10;
         }
 
+        /* Corpo do Envelope */
         .envelope {
             position: relative;
             width: 100%;
             height: 100%;
-            background-color: var(--cor-envelope);
+            background-color: var(--rosa-envelope);
             border-radius: 0 0 10px 10px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             z-index: 5;
+            overflow: hidden;
         }
 
-        /* Aba Lateral Esquerda */
+        /* Efeito de dobras do envelope */
         .envelope::before {
             content: "";
             position: absolute;
             z-index: 6;
-            border-left: 160px solid var(--cor-aba-interna);
+            border-left: 160px solid var(--rosa-aba);
             border-top: 110px solid transparent;
             border-bottom: 110px solid transparent;
             left: 0;
         }
 
-        /* Aba Lateral Direita */
         .envelope::after {
             content: "";
             position: absolute;
             z-index: 6;
-            border-right: 160px solid var(--cor-aba-interna);
+            border-right: 160px solid var(--rosa-aba);
             border-top: 110px solid transparent;
             border-bottom: 110px solid transparent;
             right: 0;
         }
 
-        /* Aba de Baixo */
-        .front-bottom {
-            position: absolute;
-            bottom: 0;
-            z-index: 7;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-bottom: 115px solid #ffb3c1;
-            border-radius: 0 0 10px 10px;
-        }
-
-        /* Aba Superior (Fecha Tudo) */
+        /* Aba Superior (A que abre e fecha) */
         .lid {
             position: absolute;
             top: 0;
@@ -99,13 +89,13 @@
             height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
-            border-top: 120px solid var(--cor-envelope);
+            border-top: 120px solid var(--rosa-envelope);
             transform-origin: top;
             transition: transform 0.6s ease;
-            z-index: 10; /* Fica por cima de tudo para fechar */
+            z-index: 10;
         }
 
-        /* Carta */
+        /* Papel da Carta */
         .card {
             position: absolute;
             top: 10px;
@@ -113,7 +103,7 @@
             width: 290px;
             height: 200px;
             background: white;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             transition: transform 0.7s ease;
             z-index: 4;
@@ -121,44 +111,36 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
         /* Foto da Emanuelly */
-        .foto-emanuelly {
-            width: 70px;
-            height: 70px;
+        .foto-perfil {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--cor-detalhe);
             margin-bottom: 10px;
         }
 
-        .card h2 { font-size: 1.1rem; color: var(--cor-detalhe); margin-bottom: 5px; }
-        .card p { font-size: 0.85rem; color: #444; line-height: 1.3; }
+        .card h2 { font-size: 1.2rem; color: var(--cor-detalhe); margin-bottom: 8px; }
+        .card p { font-size: 0.9rem; color: #444; line-height: 1.4; }
 
         /* Selo de Coração */
         .seal {
             position: absolute;
-            top: 100px;
+            top: 110px;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 35px;
+            font-size: 40px;
             z-index: 11;
             transition: 0.3s;
         }
 
-        /* Animação Abrir */
-        .container.open .lid {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .container.open .card {
-            transform: translateY(-160px);
-            z-index: 9;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
+        /* Animações de Abertura */
+        .container.open .lid { transform: rotateX(180deg); z-index: 1; }
+        .container.open .card { transform: translateY(-160px); z-index: 9; }
         .container.open .seal { opacity: 0; pointer-events: none; }
 
         .tap-text {
@@ -166,4 +148,46 @@
             bottom: -50px;
             width: 100%;
             text-align: center;
-            color
+            color: var(--cor-detalhe);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" onclick="this.classList.toggle('open')">
+        
+        <div class="lid"></div>
+        
+        <div class="seal">❤️</div>
+        
+        <div class="envelope">
+            
+            <div class="card">
+                
+                <img src="https://www.w3schools.com/howto/img_avatar2.png" 
+                     alt="Emanuelly" 
+                     class="foto-perfil"> <h2>Para Emanuelly ❤️</h2>
+                <p>Eu queria algo especial para te mostrar o quanto você é incrível.</p>
+                <p><strong>Você é o meu melhor presente!</strong></p>
+            </div>
+            
+        </div>
+        <p class="tap-text">TOQUE PARA ABRIR</p>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
