@@ -3,154 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Emanuelly ❤️</title>
+    <title>Para Minha Emanuelly ❤️</title>
     <style>
-        /* RESET BÁSICO */
+        :root {
+            --cor-fundo: #ffe5ec;
+            --cor-envelope: #ff758f;
+            --cor-aba-interna: #ff8fa3;
+            --cor-detalhe: #ff4d6d;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             height: 100vh;
-            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #ffe5ec; /* Rosa claro de fundo */
+            background-color: var(--cor-fundo);
             font-family: 'Arial', sans-serif;
             overflow: hidden;
-            position: relative;
         }
 
-        /* CHUVA DE CORAÇÕES */
+        /* Chuva de Corações */
         .heart {
             position: absolute;
             top: -20px;
-            color: #ff4d6d;
+            color: var(--cor-detalhe);
             font-size: 20px;
-            user-select: none;
-            z-index: 1;
             animation: fall linear forwards;
+            z-index: 1;
         }
 
         @keyframes fall {
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        /* CONTAINER PRINCIPAL */
+        /* Envelope */
         .container {
             position: relative;
-            z-index: 10;
-            width: 300px;
-            height: 200px;
+            width: 320px;
+            height: 220px;
             cursor: pointer;
+            z-index: 10;
         }
 
-        /* ENVELOPE */
         .envelope {
             position: relative;
             width: 100%;
             height: 100%;
-            background-color: #ff758f; /* Rosa mais escuro */
+            background-color: var(--cor-envelope);
             border-radius: 0 0 10px 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            z-index: 5;
         }
 
-        /* ABA SUPERIOR (FECHADA) */
+        /* Aba Lateral Esquerda */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            z-index: 6;
+            border-left: 160px solid var(--cor-aba-interna);
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid transparent;
+            left: 0;
+        }
+
+        /* Aba Lateral Direita */
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 6;
+            border-right: 160px solid var(--cor-aba-interna);
+            border-top: 110px solid transparent;
+            border-bottom: 110px solid transparent;
+            right: 0;
+        }
+
+        /* Aba de Baixo */
+        .front-bottom {
+            position: absolute;
+            bottom: 0;
+            z-index: 7;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 115px solid #ffb3c1;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* Aba Superior (Fecha Tudo) */
         .lid {
             position: absolute;
             top: 0;
             left: 0;
             width: 0;
             height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-top: 110px solid #ff8fa3; /* Cor da aba */
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid var(--cor-envelope);
             transform-origin: top;
             transition: transform 0.6s ease;
-            z-index: 6;
+            z-index: 10; /* Fica por cima de tudo para fechar */
         }
 
-        /* CARTA (ESCONDIDA) */
+        /* Carta */
         .card {
             position: absolute;
-            top: 5px;
+            top: 10px;
             left: 15px;
-            width: 270px;
-            height: 180px;
+            width: 290px;
+            height: 200px;
             background: white;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            transition: transform 0.6s ease;
+            transition: transform 0.7s ease;
             z-index: 4;
             border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .card h2 { font-size: 1.2rem; color: #ff4d6d; margin-bottom: 10px; }
-        .card p { font-size: 0.9rem; color: #333; line-height: 1.4; }
+        /* Foto da Emanuelly */
+        .foto-emanuelly {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--cor-detalhe);
+            margin-bottom: 10px;
+        }
 
-        /* DETALHE DO SELO */
+        .card h2 { font-size: 1.1rem; color: var(--cor-detalhe); margin-bottom: 5px; }
+        .card p { font-size: 0.85rem; color: #444; line-height: 1.3; }
+
+        /* Selo de Coração */
         .seal {
             position: absolute;
-            top: 90px;
+            top: 100px;
             left: 50%;
-            transform: translateX(-50%);
-            font-size: 30px;
-            z-index: 7;
-            transition: 0.4s;
+            transform: translate(-50%, -50%);
+            font-size: 35px;
+            z-index: 11;
+            transition: 0.3s;
         }
 
-        /* ANIMAÇÃO AO CLICAR */
+        /* Animação Abrir */
         .container.open .lid {
             transform: rotateX(180deg);
             z-index: 1;
         }
 
         .container.open .card {
-            transform: translateY(-130px);
-            z-index: 8;
+            transform: translateY(-160px);
+            z-index: 9;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .container.open .seal {
-            opacity: 0;
-        }
+        .container.open .seal { opacity: 0; pointer-events: none; }
 
         .tap-text {
             position: absolute;
             bottom: -50px;
             width: 100%;
             text-align: center;
-            color: #ff4d6d;
-            font-weight: bold;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container" onclick="this.classList.toggle('open')">
-        <div class="lid"></div>
-        <div class="seal">❤️</div>
-        <div class="envelope">
-            <div class="card">
-                <h2>Para Emanuelly ❤️</h2>
-                <p>Eu queria algo diferente para te mostrar o quanto você é incrível.</p>
-                <p><strong>Criei esse site só para você!</strong></p>
-            </div>
-        </div>
-        <p class="tap-text">CLIQUE PARA ABRIR</p>
-    </div>
-
-    <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }
-        setInterval(createHeart, 300);
-    </script>
-</body>
-</html>
+            color
